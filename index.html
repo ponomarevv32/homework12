@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/6b463b3d99.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+  <span class="currentTime">0</span>
+  <div class="video-player">
+    <video src="https://joy1.videvo.net/videvo_files/video/free/video0461/large_watermarked/_import_60e0167b4c3a96.14254367_preview.mp4" ></video>
+    
+    <div class="buttons">
+      <i class=" play fa fa-play-circle-o fa-2x" aria-hidden="true"></i> 
+      <input type="range" class="duration" value="0" step="0,01" >
+      <i class="fa fa-arrows-alt fa-2x" aria-hidden="true"></i> 
+      <input type="range" class="volume" min="0" max="1" step="0,01" >
+
+    </div>
+  </div>
+
+<script>
+  const video = document.querySelector("video")
+const pauseEl = document.querySelector(".pause")
+const playEl = document.querySelector(".play")
+const volumeEl = document.querySelector(".volume")
+const durationEl = document.querySelector(".duration")
+const currentTime = document.querySelector(".currentTime")
+const widthEl = document.querySelector(".fa-arrows-alt")
+playEl.addEventListener('click' , () => {
+  if (video.paused) {
+    video.play();
+    playEl.classList.remove('fa-play-circle-o') 
+    playEl.classList.add('fa-pause-circle-o')
+  } else {
+    video.pause()
+    playEl.classList.remove('fa-pause-circle-o') 
+    playEl.classList.add('fa-play-circle-o')
+  }
+})
+widthEl.addEventListener('click' , () => {
+  video.requestFullscreen();
+})
+video.addEventListener("timeupdate", event => {
+  currentTime.innerText = video.currentTime;
+  durationEl.value = video.currentTime / video.duration * 100;
+})
+volumeEl.addEventListener("input",() => {
+  video.volume = volumeEl.value;
+})
+durationEl.addEventListener('input' , () => {
+video.currentTime = durationEl.value / 100 * video.duration;
+})
+</script>
+
+</body>
+</html>
+
+
